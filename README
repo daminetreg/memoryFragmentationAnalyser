@@ -1,0 +1,8 @@
+Memory Fragmentation Analyser
+-----------------------------
+
+    The Memory Fragmentation Analyser is a tool thought to analyse memory fragmentation by computing which block were allocated or freed during the application execution, this calculations are used to represent a fragmentation image of the different memory block in real time.
+
+TODO
+----
+    In future versions this tool will provide a feature to show which calling module is responsible of the allocation and deallocation of the components. Basing the analysis on a patched valgrind massif tool.
