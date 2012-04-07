@@ -1,3 +1,2 @@
 [submodule "doc"]
-	path = doc
-	url = /home/daminetreg/workspace/memoryFragmentationAnalyserDoc
+	url = git@github.com:daminetreg/memoryFragmentationAnalyser-doc.git
