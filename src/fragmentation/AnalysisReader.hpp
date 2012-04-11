@@ -7,6 +7,7 @@
 #include <boost/spirit/include/phoenix_operator.hpp>
 
 #include <fragmentation/AnalysisData.hpp>
+#include <fragmentation/MemoryOperationStore.hpp>
 
 #include <iostream>
 
@@ -18,7 +19,7 @@ namespace fragmentation {
      * \param last End of string on which to iterate
      */
     template <typename Iterator>
-    bool parseFreeOperation(Iterator first, Iterator last) {
+    bool parseFreeOperation(Iterator first, Iterator last, MemoryOperationStore &store) {
         using boost::spirit::qi::dword;
         using boost::spirit::qi::_1;
         using boost::spirit::qi::parse;
@@ -31,7 +32,13 @@ namespace fragmentation {
                    'f' >> dword[ref(freeOperation.address) = _1] >> '\n' 
                 ));
 
-        return ( (success) && (first == last) );
+        success = ( (success) && (first == last) );
+        
+        if (success) {
+            store.put(freeOperation);
+        }
+
+        return success;
     }
 
 
@@ -41,7 +48,7 @@ namespace fragmentation {
      * \param last End of string on which to iterate
      */
     template <typename Iterator>
-    bool parseMallocOperation(Iterator first, Iterator last) {
+    bool parseMallocOperation(Iterator first, Iterator last, MemoryOperationStore &store) {
         using boost::spirit::qi::dword;
         using boost::spirit::qi::_1;
         using boost::spirit::qi::parse;
@@ -54,7 +61,14 @@ namespace fragmentation {
                    'm' >> dword[ref(mallocOperation.address) = _1] >> ' ' >> dword[ref(mallocOperation.allocSize) = _1] >> '\n' 
                 ));
                 
-        return ( (success) && (first == last) );
+        success = ( (success) && (first == last) );
+        
+        if (success) {
+            store.put(mallocOperation);
+        }
+
+        return success;
+ 
     }
 
     /**
@@ -63,7 +77,7 @@ namespace fragmentation {
      * \param last End of string on which to iterate
      */
     template <typename Iterator>
-    bool parseReallocOperation(Iterator first, Iterator last) {
+    bool parseReallocOperation(Iterator first, Iterator last, MemoryOperationStore &store) {
         using boost::spirit::qi::dword;
         using boost::spirit::qi::_1;
         using boost::spirit::qi::parse;
@@ -76,7 +90,14 @@ namespace fragmentation {
                    'r' >> dword[ref(reallocOperation.address) = _1] >> ' ' >> dword[ref(reallocOperation.allocSize) = _1] >> '\n' 
                 ));
                 
-        return ( (success) && (first == last) );
+        success = ( (success) && (first == last) );
+        
+        if (success) {
+            store.put(reallocOperation);
+        }
+
+        return success;
+ 
     }
     
 }

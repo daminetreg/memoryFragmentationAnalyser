@@ -1,5 +1,6 @@
 #include <fragmentation/AnalysisReader.hpp>
 #include <fragmentation/AnalysisWriter.hpp>
+#include <fragmentation/MemoryOperationStore.hpp>
 
 #include <iostream>
 #include <string>
@@ -48,7 +49,8 @@ int main()
 
     std::cout << "My serialized free operation (" << str << ") : " << byteArrayToHexString(str.data(), str.length()) << std::endl;
 
-    parseFreeOperation(str.begin(), str.end());
+    MemoryOperationStore memoryOperationStore;
+    parseFreeOperation(str.begin(), str.end(), memoryOperationStore);
 
     while (getline(std::cin, str))
     {
@@ -57,7 +59,7 @@ int main()
 
         str += '\n'; // Add the newline, because getline doesn't include it
 
-        if (fragmentation::parseFreeOperation(str.begin(), str.end()))
+        if (fragmentation::parseFreeOperation(str.begin(), str.end(), memoryOperationStore))
         {
             std::cout << "-------------------------\n";
             std::cout << "Parsing succeeded\n";

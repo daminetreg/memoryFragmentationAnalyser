@@ -6,20 +6,29 @@
 namespace fragmentation {
     
     /**
+     * \brief A MemoryOperation base structure, it only contains an adress because any Memory operation relates to some adress.
+     */
+    typedef struct MemoryOperation {
+        MemoryOperation(boost::uint32_t address) : address(address) {}
+        MemoryOperation() : address(0) {}
+        boost::uint32_t address;
+
+    } MemoryOperation;
+
+    /**
      * \brief Stores the Free operations which only frees a preallocated address. How much is freed is known from the previous allocation operation.
      */
-    typedef struct FreeOperation {
-        FreeOperation(boost::uint32_t address) : address(address) {}
-        FreeOperation() : address(0) {}
-        boost::uint32_t address;
+    typedef struct FreeOperation : public MemoryOperation {
+        FreeOperation(boost::uint32_t address) : MemoryOperation(address) {}
+        FreeOperation() : MemoryOperation(0) {}
     } FreeOperation;
 
     /**
      * \brief Stores the Malloc operations at the given address of the given size.
      */
-    typedef struct MallocOperation {
-        MallocOperation(boost::uint32_t address, boost::uint32_t allocSize) : address(address), allocSize(allocSize) {}
-        MallocOperation() : address(0), allocSize(0) {}
+    typedef struct MallocOperation : public MemoryOperation {
+        MallocOperation(boost::uint32_t address, boost::uint32_t allocSize) : MemoryOperation(address), allocSize(allocSize) {}
+        MallocOperation() : MemoryOperation(), allocSize(0) {}
         boost::uint32_t address;
         boost::uint32_t allocSize;
     } MallocOperation;
