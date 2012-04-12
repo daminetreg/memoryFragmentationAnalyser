@@ -21,12 +21,12 @@ configure_file (
 include_directories ("${PROJECT_BINARY_DIR}")
 
 # Configure boost for this Project
-find_package(Boost REQUIRED) 
+find_package(Boost 1.49 REQUIRED) 
 link_directories ( ${Boost_LIBRARY_DIRS} )
 include_directories ( ${Boost_INCLUDE_DIRS} )
 
 # Define Executable Output Directory
-set (EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build)
+set (EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
 # Include our configuration header
 include_directories(${CMAKE_SOURCE_DIR}/src)
