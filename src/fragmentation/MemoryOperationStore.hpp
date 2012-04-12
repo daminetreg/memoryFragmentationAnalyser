@@ -4,9 +4,9 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/container/list.hpp>
 
-namespace fragmentation {
+#include <fragmentation/AnalysisData.hpp>
 
-    class MemoryOperation;
+namespace fragmentation {
 
     /**
      * \brief The MemoryOperationStore simply contains the different memory operations which occured in the different application threads.
@@ -26,7 +26,7 @@ namespace fragmentation {
             /**
              * \sa m_memoryOperations
              */
-            boost::shared_ptr<boost::container::list<const MemoryOperation> > memoryOperations() const {
+            boost::shared_ptr<boost::container::list<MemoryOperation> > memoryOperations() const {
                 return m_memoryOperations;
             }
 
@@ -35,7 +35,7 @@ namespace fragmentation {
             /**
              * \brief Memory Operations which occured in the watched application
              */
-            boost::shared_ptr<boost::container::list<const MemoryOperation> > m_memoryOperations;
+            boost::shared_ptr<boost::container::list<MemoryOperation> > m_memoryOperations;
     };
 }
 
